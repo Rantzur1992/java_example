@@ -45,4 +45,4 @@ jobs:
           name: Run Test
           command: |
             cd java_example
-            gradle -PmainClass=JavaExample run
+            gradle run
