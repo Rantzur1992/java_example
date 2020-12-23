@@ -14,7 +14,7 @@ public class JavaExample {
 
         ChromeDriver driver = new DriverBuilder<ChromeDriver>(new ChromeOptions()).build(ChromeDriver.class);
 
-
+        driver.navigate().to("https://example.testproject.io/web/");
         driver.findElement(By.cssSelector("#name")).sendKeys("John Smith");
         driver.findElement(By.cssSelector("#password")).sendKeys("12345");
         new Actions(driver).click(driver.findElement(By.cssSelector("#login"))).build().perform();
