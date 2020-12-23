@@ -11,7 +11,7 @@ repositories {
 }
 
 application {
-    mainClassName = "src.main.java.JavaExample"
+    mainClassName = "JavaExample"
 }
 
 dependencies {
