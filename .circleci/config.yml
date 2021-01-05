@@ -3,7 +3,7 @@ jobs:
   build:
     machine:
       image: ubuntu-2004:202010-01
-    working_directory: ~/testproject
+    working_directory: ~/testproject-java-example
     steps:
       - checkout
       - run:
@@ -16,16 +16,15 @@ jobs:
       - run:
          name: Download And Install Gradle
          command: |
-            cd java_example
             chmod +x gradlew
             ./gradlew build
 
       - run:
           name: Start Docker Agent
           command: |
-            cd java_example
             set -x
             docker-compose up -d
+            
       - run:
           name: Wait for agent to register
           command: |
@@ -47,5 +46,4 @@ jobs:
       - run:
           name: Run Test
           command: |
-            cd java_example
             gradle run
