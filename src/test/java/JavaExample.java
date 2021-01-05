@@ -30,7 +30,7 @@ import java.io.IOException;
 
 
 
-/* Run a simple Web Test with JUNIT 4*/
+/* Run a simple Web Test using JUNIT 4*/
 public class JavaExample {
 
     @Test

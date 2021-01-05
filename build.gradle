@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-    id 'application'
 }
 
 group 'org.example'
@@ -11,10 +10,9 @@ repositories {
 }
 
 test {
-    useJUnit()
+    useJUnitPlatform()
 }
 
-mainClassName = "JavaExample"
 
 dependencies {
     implementation 'junit:junit:4.12'
