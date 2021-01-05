@@ -10,12 +10,13 @@ repositories {
 }
 
 test {
-    useJUnitPlatform()
+    useJUnit()
 }
-
 
 dependencies {
     implementation 'junit:junit:4.12'
     testImplementation group: 'junit', name: 'junit', version: '4.12'
     implementation 'io.testproject:java-sdk:0.65.0-RELEASE'
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.7.0'
+
 }
