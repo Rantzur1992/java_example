@@ -9,6 +9,9 @@ repositories {
     mavenCentral()
 }
 
+test {
+    useJUnit()
+}
 
 dependencies {
     implementation 'junit:junit:4.12'
