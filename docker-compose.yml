@@ -1,6 +1,6 @@
 version: "3.1"
 services:
-  testproject-agent-1:
+  testproject-agent:
     image: testproject/agent:latest
     container_name: testproject-agent
     depends_on:

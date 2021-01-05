@@ -1,36 +1,24 @@
-# Java Gradle CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-java/ for more details
-#
 version: 2
 jobs:
   build:
     machine:
       image: ubuntu-2004:202010-01
     working_directory: ~/testproject
-
     steps:
+      - checkout
       - run:
           name: Update Dependancies And Install Java 11
           command: |
             sudo apt-get -y update
-            sudo apt install -y openjdk-11-jdk wget git
+            sudo apt install -y openjdk-11-jdk
             java -version
 
       - run:
          name: Download And Install Gradle
          command: |
-           VERSION=6.5.1
-           wget https://services.gradle.org/distributions/gradle-${VERSION}-bin.zip -P /tmp
-           sudo unzip -d /opt/gradle /tmp/gradle-${VERSION}-bin.zip
-           export GRADLE_HOME=/opt/gradle/latest
-           export PATH=${GRADLE_HOME}/bin:${PATH}
-           gradle -v
-
-      - run:
-          name: Clone Code Repo
-          command: |
-            git clone https://github.com/Rantzur1992/java_example.git
+            cd java_example
+            chmod +x gradlew
+            ./gradlew build
 
       - run:
           name: Start Docker Agent
@@ -38,7 +26,22 @@ jobs:
             cd java_example
             set -x
             docker-compose up -d
-            sleep 10
+      - run:
+          name: Wait for agent to register
+          command: |
+              trap 'kill $(jobs -p)' EXIT
+              attempt_counter=0
+              max_attempts=45
+              mkdir -p build/reports/agent
+              docker-compose -f docker-compose.yml logs -f | tee build/reports/agent/log.txt&
+              until curl -s http://localhost:8585/api/status | jq '.registered' | grep true; do
+                if [ ${attempt_counter} -eq ${max_attempts} ]; then
+                  echo "Agent failed to register. Terminating..."
+                  exit 1
+                fi
+                attempt_counter=$(($attempt_counter+1))
+                sleep 1
+              done
 
       # run tests
       - run:
