@@ -14,17 +14,17 @@ services:
       FIREFOX: "firefox:4444"         # Address for Agent to communicate with Firefox browser
       FIREFOX_EXT: "localhost:5556"   # Address for accessing the Firefox Selenium server
     ports:
-    - "8585:8585"
-    - "8686:8686"                     # Expose port for SDK<->Agent communication
+      - "8585:8585"
+      - "8686:8686"                     # Expose port for SDK<->Agent communication
   chrome:
     image: selenium/standalone-chrome
     volumes:
       - /dev/shm:/dev/shm
     ports:
-    - "5555:4444"                     # Expose Selenium on port 5555
+      - "5555:4444"                     # Expose Selenium on port 5555
   firefox:
     image: selenium/standalone-firefox
     volumes:
       - /dev/shm:/dev/shm
     ports:
-    - "5556:4444"                     # Expose Selenium on port 5556
+      - "5556:4444"                     # Expose Selenium on port 5556

@@ -17,7 +17,6 @@
 
 
 import io.testproject.sdk.DriverBuilder;
-import io.testproject.sdk.drivers.GenericDriver;
 import io.testproject.sdk.drivers.web.ChromeDriver;
 import io.testproject.sdk.internal.exceptions.AgentConnectException;
 import io.testproject.sdk.internal.exceptions.InvalidTokenException;
@@ -26,8 +25,8 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
-import java.io.IOException;
 
+import java.io.IOException;
 
 
 /* Run a simple Web Test using JUNIT 4*/
@@ -40,14 +39,14 @@ public class JavaExample {
 
         driver.navigate().to("https://example.testproject.io/web/");
         driver.findElement(By.cssSelector("#name")).sendKeys("John Smith");
-        driver.findElement(By.cssSelector("#password")).sendKeys("12345");
+        driver.findElement(By.cssSelector("#password")).sendKeys(System.getenv("PASSWORD"));
         new Actions(driver).click(driver.findElement(By.cssSelector("#login"))).build().perform();
 
         boolean passed = driver.findElement(By.cssSelector("#logout")).isDisplayed();
         if (passed) {
             System.out.println("Test Passed");
         } else {
-            System.out.println("Test Failed");
+            System.err.println("Test Failed");
         }
 
         driver.quit();
